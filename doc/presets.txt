@@ -1,0 +1,94 @@
+*presets.txt*     Presets -- Quickly switch between vim configurations
+                  Author: Tom Link, micathom at gmail com
+
+
+This plugins allows users to push presets (sets of |options|) onto a 
+configuration stack and remove them later on, i.e., it allows users to 
+quickly switch between pre-defined configurations.
+
+In order to push a preset, use the |:Preset| command:
+
+    :Preset! NAME
+
+
+-----------------------------------------------------------------------
+Install~
+
+Edit the vba file and type: >
+
+    :so %
+
+See :help vimball for details.
+
+
+Post-Install~
+
+Check the values of the following variables and set them in your |vimrc| 
+file if necessary:
+
+    - |g:presets#font|
+    - |g:presets#font_sizes|
+
+
+========================================================================
+Contents~
+
+        g:presets#font ......... |g:presets#font|
+        g:presets#font_sizes ... |g:presets#font_sizes|
+        g:presets#sets ......... |g:presets#sets|
+        presets#Maximize ....... |presets#Maximize()|
+        presets#Push ........... |presets#Push()|
+        presets#Pop ............ |presets#Pop()|
+
+
+========================================================================
+autoload/presets.vim~
+
+                                                    *g:presets#font*
+g:presets#font                 (default: ...)
+    You might want to change this variable according to your 
+    preferences.
+
+                                                    *g:presets#font_sizes*
+g:presets#font_sizes           (default: {...})
+    You might want to change this variable according to your 
+    preferences.
+
+                                                    *g:presets#sets*
+g:presets#sets                 (default: {})
+    A dictionary with the keys:
+    
+      include ... A list of other presets
+      global  ... A dictionary of global options
+      window  ... A dictionary of window-local options
+      buffer  ... A dictionary of buffer-local options
+    
+    The option dictionaries keys usually are options names than should 
+    be set to its value. If the key starts with a colon (:) though, 
+    the value is an ex command.
+    
+    If the key defines a ex command, the value can be either a string 
+    or a list of two strings, where the second string is a command 
+    that undoes the effect of the first string when |:execute|d. If 
+    the value of a string begins with asterisk "*", the string is 
+    evaluated first via |eval()| -- the result of the evaluation 
+    should be the actual ex command.
+    
+    Any keys can be prepended with a number that defines its priority.
+
+                                                    *presets#Maximize()*
+presets#Maximize()
+    Maximize the window.
+    You might need to redefine it if it doesn't work for you.
+
+                                                    *presets#Push()*
+presets#Push(name)
+    Push the preset NAME onto the configuration stack.
+
+                                                    *presets#Pop()*
+presets#Pop()
+    Pop the last preset from the configuration stack.
+
+
+
+vim:tw=78:fo=tcq2:isk=!-~,^*,^|,^":ts=8:ft=help:norl:
