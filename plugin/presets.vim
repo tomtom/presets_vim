@@ -3,10 +3,11 @@
 " @GIT:         http://github.com/tomtom/vimtlib/
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2010-04-24.
-" @Last Change: 2010-04-24.
-" @Revision:    11
+" @Last Change: 2010-05-09.
+" @Revision:    20
 " GetLatestVimScripts: 0 0 :AutoInstall: presets.vim
 " Quickly switch between vim configurations
+
 
 if &cp || exists("loaded_presets")
     finish
@@ -15,7 +16,6 @@ let loaded_presets = 1
 
 let s:save_cpo = &cpo
 set cpo&vim
-
 
 " :display: Preset[!] [PRESET]
 " Push the configuration of PRESET.

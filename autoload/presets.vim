@@ -3,8 +3,8 @@
 " @GIT:         http://github.com/tomtom/vimtlib/
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2010-04-24.
-" @Last Change: 2010-04-25.
-" @Revision:    150
+" @Last Change: 2010-05-04.
+" @Revision:    153
 
 
 let s:config_stack = []
@@ -132,14 +132,20 @@ endf
 
 " Push the preset NAME onto the configuration stack.
 function! presets#Push(name) "{{{3
-    if has_key(g:presets#sets, a:name)
-        let set = g:presets#sets[a:name]
-        let previous = {}
-        call s:Set(set, previous, 0)
-        call add(s:config_stack, previous)
-        " redraw
+    let names = presets#Complete(a:name, '', 0)
+    if len(names) != 1
+        echoerr 'Presets: Ambivalent or unknown name: '. a:name .' ('. join(keys(g:presets#sets), ', ') .')'
     else
-        echoerr 'Presets: Unknown set: '. a:name
+        let name = names[0]
+        if has_key(g:presets#sets, name)
+            let set = g:presets#sets[name]
+            let previous = {}
+            call s:Set(set, previous, 0)
+            call add(s:config_stack, previous)
+            " redraw
+        else
+            echoerr 'Presets: Unknown set: '. name
+        endif
     endif
 endf
 
