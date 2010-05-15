@@ -3,8 +3,8 @@
 " @GIT:         http://github.com/tomtom/vimtlib/
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2010-04-24.
-" @Last Change: 2010-05-04.
-" @Revision:    153
+" @Last Change: 2010-05-13.
+" @Revision:    173
 
 
 let s:config_stack = []
@@ -147,22 +147,31 @@ endf
 
 
 " Push the preset NAME onto the configuration stack.
-function! presets#Push(name) "{{{3
-    let names = presets#Complete(a:name, '', 0)
-    if len(names) != 1
-        echoerr 'Presets: Ambivalent or unknown name: '. a:name .' ('. join(keys(g:presets#sets), ', ') .')'
-    else
-        let name = names[0]
-        if has_key(g:presets#sets, name)
-            let set = g:presets#sets[name]
-            let previous = {}
-            call s:Set(set, previous, 0)
-            call add(s:config_stack, previous)
-            " redraw
-        else
-            echoerr 'Presets: Unknown set: '. name
+function! presets#Push(names) "{{{3
+    for name0 in split(a:names, '\s\+')
+        let names = presets#Complete(name0, '', 0)
+        " TLogVAR name0, names
+        " Exact match
+        if index(names, name0) != -1
+            let names = [name0]
+            " TLogVAR names
         endif
-    endif
+        if len(names) != 1
+            echoerr 'Presets: Ambivalent or unknown name: '. name0 .' ('. join(keys(g:presets#sets), ', ') .')'
+        else
+            let name = names[0]
+            " TLogVAR name, names
+            if has_key(g:presets#sets, name)
+                let set = g:presets#sets[name]
+                let previous = {}
+                call s:Set(set, previous, 0)
+                call add(s:config_stack, previous)
+                " redraw
+            else
+                echoerr 'Presets: Unknown set: '. name
+            endif
+        endif
+    endfor
 endf
 
 
