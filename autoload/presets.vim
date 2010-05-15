@@ -30,11 +30,12 @@ if !exists('g:presets#font_sizes')
     " :read: let g:presets#font_sizes = {...} "{{{2
     let g:presets#font_sizes = {
                 \ 'tiny': 8,
-                \ 'small': 10,
-                \ 'normal': 12,
-                \ 'big': 14,
-                \ 'large': 16,
-                \ 'Large': 18,
+                \ 'small': 9,
+                \ 'normal': 10,
+                \ 'Normal': 11,
+                \ 'big': 12,
+                \ 'large': 14,
+                \ 'Large': 16,
                 \ }
 endif
 
@@ -61,17 +62,32 @@ if !exists('g:presets#sets')
     " Any keys can be prepended with a number that defines its priority.
     let g:presets#sets = {}   "{{{2
 
+    for [s:name, s:size] in items(g:presets#font_sizes)
+        let g:presets#sets[s:name] = {
+                \ '10global': {
+                \   '30guifont': printf(presets#font, s:size),
+                \ },
+                \}
+    endfor
+    unlet s:name s:size
+
     let g:presets#sets['plain'] = {
                 \ '10global': {
                 \   '10guioptions': substitute(&guioptions, '\C[mrlRLbT]', '', 'g'),
                 \ },
                 \}
+    
+    let g:presets#sets['full'] = {
+                \ '10global': {
+                \   '30:maximize': ['set lines=1000 columns=1000', '*printf("set lines=%d columns=%d|winpos %d %d", &lines, &columns, getwinposx(), getwinposy())'],
+                \ },
+                \}
 
-    let g:presets#sets['normalscreen'] = {
-                \ '00include': ['plain'],
+
+    let g:presets#sets['screen'] = {
+                \ '00include': ['plain', 'full'],
                 \ '10global': {
                 \   '10foldcolumn': 1,
-                \   '30:maximize': ['set lines=1000 columns=1000', '*printf("set lines=%d columns=%d|winpos %d %d", &lines, &columns, getwinposx(), getwinposy())'],
                 \ },
                 \ '20buffer': {
                 \ },
