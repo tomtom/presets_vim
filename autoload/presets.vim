@@ -3,8 +3,8 @@
 " @GIT:         http://github.com/tomtom/vimtlib/
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2010-04-24.
-" @Last Change: 2010-05-13.
-" @Revision:    173
+" @Last Change: 2010-05-16.
+" @Revision:    190
 
 
 let s:config_stack = []
@@ -71,6 +71,13 @@ if !exists('g:presets#sets')
     endfor
     unlet s:name s:size
 
+    let g:presets#sets['ruler'] = {
+                \ '10global': {
+                \   '10laststatus': 0,
+                \   '10ruler': 1,
+                \ },
+                \}
+
     let g:presets#sets['plain'] = {
                 \ '10global': {
                 \   '10guioptions': substitute(&guioptions, '\C[mrlRLbT]', '', 'g'),
@@ -135,9 +142,12 @@ if !exists('*presets#Maximize')
 endif
 
 
+let s:special_names = ['show']
+
+
 " :nodoc:
 function! presets#Complete(ArgLead, CmdLine, CursorPos) "{{{3
-    let sets = keys(g:presets#sets)
+    let sets = sort(keys(g:presets#sets), 1) + s:special_names
     if !empty(a:ArgLead)
         let slen = len(a:ArgLead)
         call filter(sets, 'strpart(v:val, 0, slen) ==# a:ArgLead')
@@ -147,31 +157,39 @@ endf
 
 
 " Push the preset NAME onto the configuration stack.
+"
+" The following special NAMEs are supported:
+"   show ... list the names of the presets on the configuration stack
 function! presets#Push(names) "{{{3
-    for name0 in split(a:names, '\s\+')
-        let names = presets#Complete(name0, '', 0)
-        " TLogVAR name0, names
-        " Exact match
-        if index(names, name0) != -1
-            let names = [name0]
-            " TLogVAR names
-        endif
-        if len(names) != 1
-            echoerr 'Presets: Ambivalent or unknown name: '. name0 .' ('. join(keys(g:presets#sets), ', ') .')'
-        else
-            let name = names[0]
-            " TLogVAR name, names
-            if has_key(g:presets#sets, name)
-                let set = g:presets#sets[name]
-                let previous = {}
-                call s:Set(set, previous, 0)
-                call add(s:config_stack, previous)
-                " redraw
-            else
-                echoerr 'Presets: Unknown set: '. name
+    if a:names == 'show'
+        let names = reverse(map(copy(s:config_stack), 'v:val._name'))
+        echom "Presets stack:" join(names, ', ')
+    else
+        for name0 in split(a:names, '\s\+')
+            let names = presets#Complete(name0, '', 0)
+            " TLogVAR name0, names
+            " Exact match
+            if index(names, name0) != -1
+                let names = [name0]
+                " TLogVAR names
             endif
-        endif
-    endfor
+            if len(names) != 1
+                echoerr 'Presets: Ambivalent or unknown name: '. name0 .' ('. join(keys(g:presets#sets), ', ') .')'
+            else
+                let name = names[0]
+                " TLogVAR name, names
+                if has_key(g:presets#sets, name)
+                    let set = g:presets#sets[name]
+                    let previous = {'_name': name}
+                    call s:Set(set, previous, 0)
+                    call add(s:config_stack, previous)
+                    " redraw
+                else
+                    echoerr 'Presets: Unknown set: '. name
+                endif
+            endif
+        endfor
+    endif
 endf
 
 
@@ -207,6 +225,7 @@ function! s:Set(preset, save, descending_order) "{{{3
                 let preset = g:presets#sets[name]
                 call s:Set(preset, a:save, a:descending_order)
             endfor
+        elseif type[0] == '_'
         else
             if !has_key(a:save, type)
                 let a:save[type] = {}

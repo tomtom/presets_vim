@@ -82,8 +82,11 @@ presets#Maximize()
     You might need to redefine it if it doesn't work for you.
 
                                                     *presets#Push()*
-presets#Push(name)
+presets#Push(names)
     Push the preset NAME onto the configuration stack.
+    
+    The following special NAMEs are supported:
+      show ... list the names of the presets on the configuration stack
 
                                                     *presets#Pop()*
 presets#Pop()

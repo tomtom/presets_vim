@@ -3,8 +3,8 @@
 " @GIT:         http://github.com/tomtom/vimtlib/
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2010-04-24.
-" @Last Change: 2010-05-09.
-" @Revision:    20
+" @Last Change: 2010-05-15.
+" @Revision:    23
 " GetLatestVimScripts: 0 0 :AutoInstall: presets.vim
 " Quickly switch between vim configurations
 
@@ -25,6 +25,9 @@ set cpo&vim
 "
 " If no PRESET argument is given, pop the previous preset from the 
 " configuration stack.
+"
+" This command supports certain special names -- see |presets#Push()| 
+" for details.
 command! -bang -nargs=? -complete=customlist,presets#Complete Preset
             \ if empty(<q-args>) |
             \   call presets#Pop() |
