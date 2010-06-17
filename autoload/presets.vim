@@ -3,8 +3,8 @@
 " @GIT:         http://github.com/tomtom/vimtlib/
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2010-04-24.
-" @Last Change: 2010-05-16.
-" @Revision:    190
+" @Last Change: 2010-06-08.
+" @Revision:    191
 
 
 let s:config_stack = []
@@ -24,18 +24,25 @@ if !exists('g:presets#font')
 endif
 
 
-if !exists('g:presets#font_sizes')
+if !exists('presets#font_base_size')
     " You might want to change this variable according to your 
     " preferences.
+    let presets#font_base_size = 10   "{{{2
+endif
+
+
+if !exists('g:presets#font_sizes')
+    " Relative font sizes based on the value of 
+    " |presets#font_base_size|.
     " :read: let g:presets#font_sizes = {...} "{{{2
     let g:presets#font_sizes = {
-                \ 'tiny': 8,
-                \ 'small': 9,
-                \ 'normal': 10,
-                \ 'Normal': 11,
-                \ 'big': 12,
-                \ 'large': 14,
-                \ 'Large': 16,
+                \ 'tiny': presets#font_base_size - 2,
+                \ 'small': presets#font_base_size - 1,
+                \ 'normal': presets#font_base_size,
+                \ 'Normal': presets#font_base_size + 1,
+                \ 'big': presets#font_base_size + 2,
+                \ 'large': presets#font_base_size + 4,
+                \ 'Large': presets#font_base_size + 6,
                 \ }
 endif
 
