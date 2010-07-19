@@ -3,8 +3,8 @@
 " @GIT:         http://github.com/tomtom/vimtlib/
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2010-04-24.
-" @Last Change: 2010-06-08.
-" @Revision:    191
+" @Last Change: 2010-07-19.
+" @Revision:    202
 
 
 let s:config_stack = []
@@ -93,7 +93,7 @@ if !exists('g:presets#sets')
     
     let g:presets#sets['full'] = {
                 \ '10global': {
-                \   '30:maximize': ['set lines=1000 columns=1000', '*printf("set lines=%d columns=%d|winpos %d %d", &lines, &columns, getwinposx(), getwinposy())'],
+                \   '30:maximize': ['call presets#Maximize(1)', '*printf("call presets#Restore(%d, %d, %d, %d)", &lines, &columns, getwinposx(), getwinposy())'],
                 \ },
                 \}
 
@@ -116,7 +116,7 @@ if !exists('g:presets#sets')
                 \   '10foldcolumn': 12,
                 \   '10laststatus': 0,
                 \   '10linespace': 8,
-                \   '20:maximize': ['call presets#Maximize()', '*printf("set lines=%d columns=%d|winpos %d %d", &lines, &columns, getwinposx(), getwinposy())'],
+                \   '20:maximize': ['call presets#Maximize(1)', '*printf("call presets#Restore(%d, %d, %d, %d)", &lines, &columns, getwinposx(), getwinposy())'],
                 \   '30guifont': printf(presets#font, g:presets#font_sizes.large),
                 \ },
                 \ '20buffer': {
@@ -129,21 +129,44 @@ if !exists('g:presets#sets')
 endif
 
 
+function! presets#Restore(lines, columns, x, y) "{{{3
+    if exists('g:loaded_tlib') && g:loaded_tlib >= 39
+        call tlib#vim#RestoreWindow()
+    else
+        let &lines = a:lines
+        let &columns = a:columns
+        exec 'winpos' a:x a:y
+    endif
+endf
+
+
 if !exists('*presets#Maximize')
-    if has('win16') || has('win32') || has('win64')
+
+    if exists('g:loaded_tlib') && g:loaded_tlib >= 39
 
         " Maximize the window.
         " You might need to redefine it if it doesn't work for you.
-        fun! presets#Maximize() "{{{3
-            simalt ~x
+        fun! presets#Maximize(fullscreen) "{{{3
+            call tlib#vim#Maximize(a:fullscreen)
         endf
 
     else
 
-        " :nodoc:
-        fun! presets#Maximize() "{{{3
-            set lines=1000 columns=1000 
-        endf
+        if has('win16') || has('win32') || has('win64')
+
+            " :nodoc:
+            fun! presets#Maximize(fullscreen) "{{{3
+                simalt ~x
+            endf
+
+        else
+
+            " :nodoc:
+            fun! presets#Maximize(fullscreen) "{{{3
+                set lines=1000 columns=1000 
+            endf
+
+        endif
 
     endif
 endif
