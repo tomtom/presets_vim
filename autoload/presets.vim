@@ -3,8 +3,8 @@
 " @GIT:         http://github.com/tomtom/vimtlib/
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2010-04-24.
-" @Last Change: 2010-07-19.
-" @Revision:    202
+" @Last Change: 2010-09-11.
+" @Revision:    218
 
 
 let s:config_stack = []
@@ -90,13 +90,19 @@ if !exists('g:presets#sets')
                 \   '10guioptions': substitute(&guioptions, '\C[mrlRLbT]', '', 'g'),
                 \ },
                 \}
+
+    if (has('win32') || has('win64')) && executable("vimtweak.dll")
+        let g:presets#sets['plain']['10global']['20:notitle'] = [
+                    \ 'call libcallnr("vimtweak.dll", "EnableCaption", 0)',
+                    \ 'call libcallnr("vimtweak.dll", "EnableCaption", 1)'
+                    \ ]
+    endif
     
     let g:presets#sets['full'] = {
                 \ '10global': {
                 \   '30:maximize': ['call presets#Maximize(1)', '*printf("call presets#Restore(%d, %d, %d, %d)", &lines, &columns, getwinposx(), getwinposy())'],
                 \ },
                 \}
-
 
     let g:presets#sets['screen'] = {
                 \ '00include': ['plain', 'full'],
