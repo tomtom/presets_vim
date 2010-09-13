@@ -1,6 +1,3 @@
-*presets.txt*     Presets -- Quickly switch between vim configurations
-
-
 This plugins allows users to push presets (sets of |options|) onto a 
 configuration stack and remove them later on, i.e., it allows users to 
 quickly switch between pre-defined configurations (e.g. GUI-related 

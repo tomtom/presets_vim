@@ -1,7 +1,6 @@
 *presets.txt*     Presets -- Quickly switch between vim configurations
                   Author: Tom Link, micathom at gmail com
 
-
 This plugins allows users to push presets (sets of |options|) onto a 
 configuration stack and remove them later on, i.e., it allows users to 
 quickly switch between pre-defined configurations (e.g. GUI-related 
@@ -79,6 +78,8 @@ presets#font_base_size         (default: 10)
 g:presets#font_sizes           (default: {...})
     Relative font sizes based on the value of 
     |presets#font_base_size|.
+    The following font sizes are predefined: tiny, small, normal, 
+    Normal, big, large, Large.
 
                                                     *g:presets#sets*
 g:presets#sets                 (default: {})
@@ -101,6 +102,16 @@ g:presets#sets                 (default: {})
     should be the actual ex command.
     
     Any keys can be prepended with a number that defines its priority.
+
+    Besides presets for font sizes (see |g:presets#font_sizes|), the 
+    following presets are known:
+
+      ruler      ... Hide the statusline and display a ruler
+      plain      ... Remove window/frame decorations
+      full       ... Maximize the window
+      screen     ... Optimize the use of available screen estate
+      fullscreen ... Maximize the use of available screen estate
+      darkscreen ... Simulate darkscreen
 
                                                     *presets#Restore()*
 presets#Restore(lines, columns, x, y)

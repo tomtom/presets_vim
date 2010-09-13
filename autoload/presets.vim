@@ -3,8 +3,8 @@
 " @GIT:         http://github.com/tomtom/vimtlib/
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2010-04-24.
-" @Last Change: 2010-09-11.
-" @Revision:    218
+" @Last Change: 2010-09-13.
+" @Revision:    231
 
 
 let s:config_stack = []
@@ -34,6 +34,8 @@ endif
 if !exists('g:presets#font_sizes')
     " Relative font sizes based on the value of 
     " |presets#font_base_size|.
+    " The following font sizes are predefined: tiny, small, normal, 
+    " Normal, big, large, Large.
     " :read: let g:presets#font_sizes = {...} "{{{2
     let g:presets#font_sizes = {
                 \ 'tiny': presets#font_base_size - 2,
@@ -78,6 +80,12 @@ if !exists('g:presets#sets')
     endfor
     unlet s:name s:size
 
+    " :doc: notag
+    "     Besides presets for font sizes (see |g:presets#font_sizes|), the 
+    "     following presets are known:
+
+    " :doc: notag nonl
+    "       ruler      ... Hide the statusline and display a ruler
     let g:presets#sets['ruler'] = {
                 \ '10global': {
                 \   '10laststatus': 0,
@@ -85,6 +93,8 @@ if !exists('g:presets#sets')
                 \ },
                 \}
 
+    " :doc: notag nonl
+    "       plain      ... Remove window/frame decorations
     let g:presets#sets['plain'] = {
                 \ '10global': {
                 \   '10guioptions': substitute(&guioptions, '\C[mrlRLbT]', '', 'g'),
@@ -98,12 +108,16 @@ if !exists('g:presets#sets')
                     \ ]
     endif
     
+    " :doc: notag nonl
+    "       full       ... Maximize the window
     let g:presets#sets['full'] = {
                 \ '10global': {
                 \   '30:maximize': ['call presets#Maximize(1)', '*printf("call presets#Restore(%d, %d, %d, %d)", &lines, &columns, getwinposx(), getwinposy())'],
                 \ },
                 \}
 
+    " :doc: notag nonl
+    "       screen     ... Optimize the use of available screen estate
     let g:presets#sets['screen'] = {
                 \ '00include': ['plain', 'full'],
                 \ '10global': {
@@ -116,6 +130,14 @@ if !exists('g:presets#sets')
                 \ },
                 \}
 
+    " :doc: notag nonl
+    "       fullscreen ... Maximize the use of available screen estate
+    let g:presets#sets['fullscreen'] = {
+                \ '00include': ['plain', 'full', 'ruler'],
+                \ }
+
+    " :doc: notag
+    "       darkscreen ... Simulate darkscreen
     let g:presets#sets['darkscreen'] = {
                 \ '00include': ['plain'],
                 \ '10global': {
