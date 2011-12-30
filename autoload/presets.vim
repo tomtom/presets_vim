@@ -251,13 +251,18 @@ function! presets#Push(names) "{{{3
 endf
 
 
+" :display: presets#Pop(?number = 1)
 " Pop the last preset from the configuration stack.
-function! presets#Pop() "{{{3
-    if !empty(s:config_stack)
+" If number is -1, pop all presets.
+function! presets#Pop(...) "{{{3
+    let n = a:0 >= 1 ? a:1 : 1
+    while n != 0 && !empty(s:config_stack)
         let previous = remove(s:config_stack, -1)
         " TLogVAR previous
         call s:Set(previous, {}, 1)
-    endif
+        let n -= 1
+    endwh
+endf
 endf
 
 

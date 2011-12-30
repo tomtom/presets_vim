@@ -20,19 +20,19 @@ set cpo&vim
 " :display: :Preset[!] [PRESET]
 " Push the configuration of PRESET.
 "
-" With [!], pop the previous preset from the configuration stack before 
-" pushing PRESET.
+" If no PRESET argument is given, list the presets on the configuration 
+" stack.
 "
-" If no PRESET argument is given, pop the previous preset from the 
-" configuration stack.
+" With [!], pop previous presets from the configuration stack. This 
+" happens before pushing new presets.
 "
 " This command supports certain special names -- see |presets#Push()| 
 " for details.
 command! -bang -nargs=? -complete=customlist,presets#Complete Preset
+            \ if !empty("<bang>") | call presets#Pop(-1) | endif |
             \ if empty(<q-args>) |
-            \   call presets#Pop() |
+            \   if empty("<bang>") | call presets#Pop(1) | call presets#List(0) | endif |
             \ else |
-            \   if !empty("<bang>") | call presets#Pop() | endif |
             \   call presets#Push(<q-args>) |
             \ endif
 
