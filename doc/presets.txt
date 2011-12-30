@@ -34,6 +34,7 @@ file if necessary:
 Contents~
 
         :Preset .................. |:Preset|
+        :ListPresets ............. |:ListPresets|
         g:presets#font ........... |g:presets#font|
         presets#font_base_size ... |presets#font_base_size|
         g:presets#font_sizes ..... |g:presets#font_sizes|
@@ -42,6 +43,7 @@ Contents~
         presets#Maximize ......... |presets#Maximize()|
         presets#Push ............. |presets#Push()|
         presets#Pop .............. |presets#Pop()|
+        presets#List ............. |presets#List()|
 
 
 ========================================================================
@@ -51,14 +53,18 @@ plugin/presets.vim~
 :Preset[!] [PRESET]
     Push the configuration of PRESET.
     
-    With [!], pop the previous preset from the configuration stack before 
-    pushing PRESET.
+    If no PRESET argument is given, list the presets on the configuration 
+    stack.
     
-    If no PRESET argument is given, pop the previous preset from the 
-    configuration stack.
+    With [!], pop previous presets from the configuration stack. This 
+    happens before pushing new presets.
     
     This command supports certain special names -- see |presets#Push()| 
     for details.
+
+                                                    *:ListPresets*
+:ListPresets
+    List the presets on the configuration stack.
 
 
 ========================================================================
@@ -106,7 +112,7 @@ g:presets#sets                 (default: {})
     Besides presets for font sizes (see |g:presets#font_sizes|), the 
     following presets are known:
 
-      ruler      ... Hide the statusline and display a ruler
+      ruler      ... Hide the |statusline| and display a |ruler|
       plain      ... Remove window/frame decorations
       full       ... Maximize the window
       screen     ... Optimize the use of available screen estate
@@ -129,8 +135,13 @@ presets#Push(names)
       show ... list the names of the presets on the configuration stack
 
                                                     *presets#Pop()*
-presets#Pop()
+presets#Pop(?number = 1)
     Pop the last preset from the configuration stack.
+    If number is -1, pop all presets.
+
+                                                    *presets#List()*
+presets#List(use_echom)
+    List the presets on the configuration stack.
 
 
 
