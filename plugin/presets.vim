@@ -1,10 +1,10 @@
 " @Author:      Tom Link (micathom AT gmail com?subject=[vim])
 " @Website:     http://www.vim.org/account/profile.php?user_id=4037
-" @GIT:         http://github.com/tomtom/vimtlib/
+" @GIT:         http://github.com/tomtom/presets_vim/
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2010-04-24.
-" @Last Change: 2010-08-21.
-" @Revision:    25
+" @Last Change: 2011-04-19.
+" @Revision:    42
 " GetLatestVimScripts: 0 0 :AutoInstall: presets.vim
 " Quickly switch between vim configurations
 
@@ -35,6 +35,10 @@ command! -bang -nargs=? -complete=customlist,presets#Complete Preset
             \ else |
             \   call presets#Push(<q-args>) |
             \ endif
+
+
+" List the presets on the configuration stack.
+command! ListPresets call presets#List(1)
 
 
 let &cpo = s:save_cpo

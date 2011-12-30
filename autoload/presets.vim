@@ -1,10 +1,10 @@
 " @Author:      Tom Link (micathom AT gmail com?subject=[vim])
 " @Website:     http://www.vim.org/account/profile.php?user_id=4037
-" @GIT:         http://github.com/tomtom/vimtlib/
+" @GIT:         http://github.com/tomtom/presets_vim/
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2010-04-24.
-" @Last Change: 2010-09-13.
-" @Revision:    231
+" @Last Change: 2011-04-19.
+" @Revision:    250
 
 
 let s:config_stack = []
@@ -85,7 +85,7 @@ if !exists('g:presets#sets')
     "     following presets are known:
 
     " :doc: notag nonl
-    "       ruler      ... Hide the statusline and display a ruler
+    "       ruler      ... Hide the |statusline| and display a |ruler|
     let g:presets#sets['ruler'] = {
                 \ '10global': {
                 \   '10laststatus': 0,
@@ -263,6 +263,13 @@ function! presets#Pop(...) "{{{3
         let n -= 1
     endwh
 endf
+
+
+" List the presets on the configuration stack.
+function! presets#List(use_echom) "{{{3
+    let names = map(copy(s:config_stack), 'v:val._name')
+    let cmd = a:use_echom ? 'echom' : 'echo'
+    exec cmd string("Presets: ". join(names))
 endf
 
 
