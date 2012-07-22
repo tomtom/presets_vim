@@ -3,8 +3,8 @@
 " @GIT:         http://github.com/tomtom/presets_vim/
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2010-04-24.
-" @Last Change: 2011-04-19.
-" @Revision:    42
+" @Last Change: 2012-07-20.
+" @Revision:    50
 " GetLatestVimScripts: 0 0 :AutoInstall: presets.vim
 " Quickly switch between vim configurations
 
@@ -16,6 +16,13 @@ let loaded_presets = 1
 
 let s:save_cpo = &cpo
 set cpo&vim
+
+
+if !exists('g:presets_default')
+    " The preset to set after startup.
+    let g:presets_default = ''   "{{{2
+endif
+
 
 " :display: :Preset[!] [PRESET]
 " Push the configuration of PRESET.
@@ -39,6 +46,19 @@ command! -bang -nargs=? -complete=customlist,presets#Complete Preset
 
 " List the presets on the configuration stack.
 command! ListPresets call presets#List(1)
+
+
+" @TPluginInclude
+augroup Presets
+    autocmd!
+    if exists('g:presets_default') && !empty(g:presets_default)
+        if has('vim_starting')
+            exec 'autocmd VimEnter * Preset!' g:presets_default
+        else
+            exec 'Preset!' g:presets_default
+        endif
+    endif
+augroup END
 
 
 let &cpo = s:save_cpo
