@@ -3,8 +3,8 @@
 " @GIT:         http://github.com/tomtom/presets_vim/
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2010-04-24.
-" @Last Change: 2011-04-19.
-" @Revision:    250
+" @Last Change: 2012-07-20.
+" @Revision:    254
 
 
 let s:config_stack = []
@@ -19,7 +19,7 @@ if !exists('g:presets#font')
     elseif has("x11")
         let g:presets#font = '*-lucidatypewriter-medium-r-normal-*-%s-180-*-*-m-*-*'
     elseif has("gui_win32")
-        let g:presets#font = 'Lucida_Sans_Typewriter:h%s:cANSI'
+        let g:presets#font = 'Lucida_Console:h%s:cANSI'
     endif
 endif
 
@@ -219,6 +219,7 @@ endf
 " The following special NAMEs are supported:
 "   show ... list the names of the presets on the configuration stack
 function! presets#Push(names) "{{{3
+    " TLogVAR a:names
     if a:names == 'show'
         let names = reverse(map(copy(s:config_stack), 'v:val._name'))
         echom "Presets stack:" join(names, ', ')
