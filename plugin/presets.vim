@@ -3,8 +3,8 @@
 " @GIT:         http://github.com/tomtom/presets_vim/
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2010-04-24.
-" @Last Change: 2012-07-20.
-" @Revision:    50
+" @Last Change: 2012-09-16.
+" @Revision:    51
 " GetLatestVimScripts: 0 0 :AutoInstall: presets.vim
 " Quickly switch between vim configurations
 
@@ -63,9 +63,3 @@ augroup END
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
-finish
-
-CHANGES:
-0.1
-- Initial release
-

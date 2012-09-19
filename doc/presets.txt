@@ -33,6 +33,7 @@ file if necessary:
 ========================================================================
 Contents~
 
+        g:presets_default ........ |g:presets_default|
         :Preset .................. |:Preset|
         :ListPresets ............. |:ListPresets|
         g:presets#font ........... |g:presets#font|
@@ -49,16 +50,20 @@ Contents~
 ========================================================================
 plugin/presets.vim~
 
+                                                    *g:presets_default*
+g:presets_default              (default: '')
+    The preset to set after startup.
+
                                                     *:Preset*
 :Preset[!] [PRESET]
     Push the configuration of PRESET.
-    
+
     If no PRESET argument is given, list the presets on the configuration 
     stack.
-    
+
     With [!], pop previous presets from the configuration stack. This 
     happens before pushing new presets.
-    
+
     This command supports certain special names -- see |presets#Push()| 
     for details.
 
@@ -90,23 +95,23 @@ g:presets#font_sizes           (default: {...})
                                                     *g:presets#sets*
 g:presets#sets                 (default: {})
     A dictionary with the keys:
-    
+
       include ... A list of other presets
       global  ... A dictionary of global options
       window  ... A dictionary of window-local options
       buffer  ... A dictionary of buffer-local options
-    
+
     The option dictionaries keys usually are options names than should 
     be set to its value. If the key starts with a colon (:) though, 
     the value is an ex command.
-    
+
     If the key defines a ex command, the value can be either a string 
     or a list of two strings, where the second string is a command 
     that undoes the effect of the first string when |:execute|d. If 
     the value of a string begins with asterisk "*", the string is 
     evaluated first via |eval()| -- the result of the evaluation 
     should be the actual ex command.
-    
+
     Any keys can be prepended with a number that defines its priority.
 
     Besides presets for font sizes (see |g:presets#font_sizes|), the 
@@ -130,7 +135,7 @@ presets#Maximize(fullscreen)
                                                     *presets#Push()*
 presets#Push(names)
     Push the preset NAME onto the configuration stack.
-    
+
     The following special NAMEs are supported:
       show ... list the names of the presets on the configuration stack
 
