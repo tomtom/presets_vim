@@ -4,7 +4,7 @@
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2010-04-24.
 " @Last Change: 2012-07-20.
-" @Revision:    254
+" @Revision:    265
 
 
 let s:config_stack = []
