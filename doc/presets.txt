@@ -103,6 +103,8 @@ g:presets#sets                 (default: {})
 
       darkscreen ... Simulate darkscreen
 
+      buffercol ... Center current buffer
+
       darkcol ... Simulate darkscreen (center current buffer)
 
                                                     *presets#Restore()*

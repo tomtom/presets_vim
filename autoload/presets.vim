@@ -4,7 +4,7 @@
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2010-04-24.
 " @Last Change: 2012-07-20.
-" @Revision:    328
+" @Revision:    330
 
 
 let s:config_stack = []
@@ -161,12 +161,17 @@ if !exists('g:presets#sets')
                 \}
 
     " :doc: notag
-    "       darkcol ... Simulate darkscreen (center current buffer)
-    let g:presets#sets['darkcol'] = {
-                \ '00include': ['darkscreen_base'],
+    "       buffercol ... Center current buffer
+    let g:presets#sets['buffercol'] = {
                 \ '40global': {
                 \   ':padding': ['call presets#Pad(&tw, 12)', 'call presets#Unpad()'],
                 \ },
+                \}
+
+    " :doc: notag
+    "       darkcol ... Simulate darkscreen (center current buffer)
+    let g:presets#sets['darkcol'] = {
+                \ '00include': ['darkscreen_base', 'buffercol'],
                 \}
 
 endif
