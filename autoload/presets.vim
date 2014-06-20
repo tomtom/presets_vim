@@ -4,7 +4,7 @@
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2010-04-24.
 " @Last Change: 2012-07-20.
-" @Revision:    330
+" @Revision:    331
 
 
 let s:config_stack = []
@@ -164,7 +164,7 @@ if !exists('g:presets#sets')
     "       buffercol ... Center current buffer
     let g:presets#sets['buffercol'] = {
                 \ '40global': {
-                \   ':padding': ['call presets#Pad(&tw, 12)', 'call presets#Unpad()'],
+                \   ':padding': ['call presets#pad#Pad(&tw, 12)', 'call presets#pad#Unpad()'],
                 \ },
                 \}
 
@@ -218,64 +218,6 @@ if !exists('*presets#Maximize')
 
     endif
 endif
-
-
-function! presets#Pad(tw, border) "{{{3
-    let tw = a:tw == 0 ? &g:tw : a:tw
-    let padding = (&columns - 4 - a:border - tw) / 2
-    " TLogVAR padding, bufname('%'), bufnr('%'), winnr(), winwidth(winnr())
-    if padding > 4
-        call s:Padding('below', padding)
-        call s:Padding('above', padding)
-        exec 'vert resize' tw + 4
-    endif
-    " TLogVAR bufname('%'), bufnr('%'), winnr(), winwidth(winnr())
-endf
-
-
-function! s:Padding(where, padding) "{{{3
-    " TLogVAR a:where, a:padding
-    try
-        " TLogVAR bufname('%'), bufnr('%'), winnr(), winwidth(winnr())
-        exec a:where 'vertical' a:padding 'split' s:PadName(a:where)
-        " TLogVAR bufname('%'), bufnr('%'), winnr(), winwidth(winnr())
-        exec 'vert resize' a:padding
-        setlocal buftype=nofile
-        setlocal bufhidden=hide
-        setlocal noswapfile
-        setlocal nobuflisted
-        setlocal foldmethod=manual
-        setlocal foldcolumn=0
-        setlocal nomodifiable
-        setlocal nospell
-        let &l:winminwidth = a:padding - 3
-        setlocal winfixwidth
-    finally
-        " TLogVAR bufname('%'), bufnr('%'), winnr(), winwidth(winnr())
-        wincmd p
-        " TLogVAR bufname('%'), bufnr('%'), winnr(), winwidth(winnr())
-    endtry
-endf
-
-
-function! presets#Unpad() "{{{3
-    for where in ['below', 'above']
-        let bufnr = bufnr(s:PadName(where))
-        if bufnr > 0
-            let winnr = bufwinnr(bufnr)
-            while winnr > 0 && winnr('$') > 1
-                exec winnr 'wincmd w'
-                wincmd c
-                let winnr = bufwinnr(bufnr)
-            endwh
-        endif
-    endfor
-endf
-
-
-function! s:PadName(where) "{{{3
-    return printf('__Presets_Padding_%s__', a:where)
-endf
 
 
 let s:special_names = ['show']
