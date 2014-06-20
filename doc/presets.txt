@@ -33,20 +33,46 @@ file if necessary:
 ========================================================================
 Contents~
 
-        g:presets#font ........... |g:presets#font|
-        presets#font_base_size ... |presets#font_base_size|
-        g:presets#font_sizes ..... |g:presets#font_sizes|
-        g:presets#sets ........... |g:presets#sets|
-        presets#Restore .......... |presets#Restore()|
-        presets#Maximize ......... |presets#Maximize()|
-        presets#Pad .............. |presets#Pad()|
-        presets#Unpad ............ |presets#Unpad()|
-        presets#Push ............. |presets#Push()|
-        presets#Pop .............. |presets#Pop()|
-        presets#List ............. |presets#List()|
-        g:presets_default ........ |g:presets_default|
-        :Preset .................. |:Preset|
-        :ListPresets ............. |:ListPresets|
+        g:presets_default .......... |g:presets_default|
+        :Preset .................... |:Preset|
+        :ListPresets ............... |:ListPresets|
+        g:presets#font ............. |g:presets#font|
+        presets#font_base_size ..... |presets#font_base_size|
+        g:presets#font_sizes ....... |g:presets#font_sizes|
+        g:presets#sets ............. |g:presets#sets|
+        presets#Restore ............ |presets#Restore()|
+        presets#Maximize ........... |presets#Maximize()|
+        presets#Push ............... |presets#Push()|
+        presets#Pop ................ |presets#Pop()|
+        presets#List ............... |presets#List()|
+        g:presets#pad#tw ........... |g:presets#pad#tw|
+        presets#pad#Pad ............ |presets#pad#Pad()|
+        presets#pad#Unpad .......... |presets#pad#Unpad()|
+
+
+========================================================================
+plugin/presets.vim~
+
+                                                    *g:presets_default*
+g:presets_default              (default: '')
+    The preset to set after startup.
+
+                                                    *:Preset*
+:Preset[!] [PRESET]
+    Push the configuration of PRESET.
+
+    If no PRESET argument is given, list the presets on the configuration 
+    stack.
+
+    With [!], pop previous presets from the configuration stack. This 
+    happens before pushing new presets.
+
+    This command supports certain special names -- see |presets#Push()| 
+    for details.
+
+                                                    *:ListPresets*
+:ListPresets
+    List the presets on the configuration stack.
 
 
 ========================================================================
@@ -115,12 +141,6 @@ presets#Maximize(fullscreen)
     Maximize the window.
     You might need to redefine it if it doesn't work for you.
 
-                                                    *presets#Pad()*
-presets#Pad(tw, border)
-
-                                                    *presets#Unpad()*
-presets#Unpad()
-
                                                     *presets#Push()*
 presets#Push(names)
     Push the preset NAME onto the configuration stack.
@@ -139,28 +159,16 @@ presets#List(use_echom)
 
 
 ========================================================================
-plugin/presets.vim~
+autoload/presets/pad.vim~
 
-                                                    *g:presets_default*
-g:presets_default              (default: '')
-    The preset to set after startup.
+                                                    *g:presets#pad#tw*
+g:presets#pad#tw               (default: 72)
 
-                                                    *:Preset*
-:Preset[!] [PRESET]
-    Push the configuration of PRESET.
+                                                    *presets#pad#Pad()*
+presets#pad#Pad(tw, border)
 
-    If no PRESET argument is given, list the presets on the configuration 
-    stack.
-
-    With [!], pop previous presets from the configuration stack. This 
-    happens before pushing new presets.
-
-    This command supports certain special names -- see |presets#Push()| 
-    for details.
-
-                                                    *:ListPresets*
-:ListPresets
-    List the presets on the configuration stack.
+                                                    *presets#pad#Unpad()*
+presets#pad#Unpad()
 
 
 
