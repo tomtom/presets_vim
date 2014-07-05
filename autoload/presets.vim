@@ -4,7 +4,7 @@
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2010-04-24.
 " @Last Change: 2012-07-20.
-" @Revision:    331
+" @Revision:    335
 
 
 let s:config_stack = []
@@ -164,7 +164,7 @@ if !exists('g:presets#sets')
     "       buffercol ... Center current buffer
     let g:presets#sets['buffercol'] = {
                 \ '40global': {
-                \   ':padding': ['call presets#pad#Pad(&tw, 12)', 'call presets#pad#Unpad()'],
+                \   ':padding': ['call presets#pad#Pad(&tw)', 'call presets#pad#Unpad()'],
                 \ },
                 \}
 
