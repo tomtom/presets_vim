@@ -4,7 +4,7 @@
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2010-04-24.
 " @Last Change: 2012-07-20.
-" @Revision:    335
+" @Revision:    340
 
 
 let s:config_stack = []
@@ -107,7 +107,13 @@ if !exists('g:presets#sets')
                     \ 'call libcallnr("vimtweak.dll", "EnableCaption", 1)'
                     \ ]
     endif
-    
+
+    " :doc: notag
+    "       plainer    ... plain + ruler
+    let g:presets#sets['plainer'] = {
+                \ '00include': ['plain', 'ruler'],
+                \ }
+
     " :doc: notag nonl
     "       full       ... Maximize the window
     let g:presets#sets['full'] = {
@@ -166,6 +172,12 @@ if !exists('g:presets#sets')
                 \ '40global': {
                 \   ':padding': ['call presets#pad#Pad(&tw)', 'call presets#pad#Unpad()'],
                 \ },
+                \}
+
+    " :doc: notag
+    "       Buffercol ... buffercol + plainer
+    let g:presets#sets['Buffercol'] = {
+                \ '00include': ['plainer', 'buffercol'],
                 \}
 
     " :doc: notag
