@@ -4,7 +4,7 @@
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2010-04-24.
 " @Last Change: 2012-07-20.
-" @Revision:    340
+" @Revision:    341
 
 
 let s:config_stack = []
@@ -147,7 +147,6 @@ if !exists('g:presets#sets')
     let g:presets#sets['darkscreen_base'] = {
                 \ '00include': ['plain'],
                 \ '10global': {
-                \   '10foldcolumn': 12,
                 \   '10laststatus': 0,
                 \   '10linespace': 8,
                 \   '20:maximize': ['call presets#Maximize(1)', '*printf("call presets#Restore(%d, %d, %d, %d)", &lines, &columns, getwinposx(), getwinposy())'],
@@ -161,6 +160,9 @@ if !exists('g:presets#sets')
     "       darkscreen ... Simulate darkscreen
     let g:presets#sets['darkscreen'] = {
                 \ '00include': ['darkscreen_base'],
+                \ '10global': {
+                \   '10foldcolumn': 12,
+                \ },
                 \ '30window': {
                 \   'foldcolumn': 12,
                 \ },
