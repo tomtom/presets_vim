@@ -3,8 +3,8 @@
 " @GIT:         http://github.com/tomtom/presets_vim/
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2010-04-24.
-" @Last Change: 2012-07-20.
-" @Revision:    341
+" @Last Change: 2015-10-17.
+" @Revision:    342
 
 
 let s:config_stack = []
@@ -188,6 +188,9 @@ if !exists('g:presets#sets')
                 \ '00include': ['darkscreen_base', 'buffercol'],
                 \}
 
+endif
+if exists('g:presets#sets_user')
+    let g:presets#sets = extend(g:presets#sets, g:presets#sets_user)
 endif
 
 
