@@ -3,8 +3,8 @@
 " @GIT:         http://github.com/tomtom/presets_vim/
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2010-04-24.
-" @Last Change: 2015-10-17.
-" @Revision:    342
+" @Last Change: 2015-12-06.
+" @Revision:    344
 
 
 let s:config_stack = []
@@ -173,6 +173,7 @@ if !exists('g:presets#sets')
     let g:presets#sets['buffercol'] = {
                 \ '40global': {
                 \   ':padding': ['call presets#pad#Pad(&tw)', 'call presets#pad#Unpad()'],
+                \   ':colorscheme': ['let s:colorscheme_save = g:colors_name | colorscheme presets_col', 'exec "colorscheme" s:colorscheme_save | unlet! s:colorscheme_save'],
                 \ },
                 \}
 
