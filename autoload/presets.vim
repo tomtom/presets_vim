@@ -3,8 +3,8 @@
 " @GIT:         http://github.com/tomtom/presets_vim/
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2010-04-24.
-" @Last Change: 2015-12-06.
-" @Revision:    344
+" @Last Change: 2015-12-07.
+" @Revision:    345
 
 
 let s:config_stack = []
@@ -69,6 +69,9 @@ if !exists('g:presets#sets')
     " should be the actual ex command.
     "
     " Any keys can be prepended with a number that defines its priority.
+    "
+    " Users should use |g:presets#sets_user| to append user-defined 
+    " presets.
     let g:presets#sets = {}   "{{{2
 
     for [s:name, s:size] in items(g:presets#font_sizes)

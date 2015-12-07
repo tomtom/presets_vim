@@ -117,11 +117,16 @@ g:presets#sets                 (default: {})
 
     Any keys can be prepended with a number that defines its priority.
 
+    Users should use |g:presets#sets_user| to append user-defined 
+    presets.
+
     Besides presets for font sizes (see |g:presets#font_sizes|), the 
     following presets are known:
 
       ruler      ... Hide the |statusline| and display a |ruler|
       plain      ... Remove window/frame decorations
+      plainer    ... plain + ruler
+
       full       ... Maximize the window
       screen     ... Optimize the use of available screen estate
       fullscreen ... Maximize the use of available screen estate
@@ -130,6 +135,8 @@ g:presets#sets                 (default: {})
       darkscreen ... Simulate darkscreen
 
       buffercol ... Center current buffer
+
+      Buffercol ... buffercol + plainer
 
       darkcol ... Simulate darkscreen (center current buffer)
 
@@ -165,11 +172,11 @@ autoload/presets/pad.vim~
 g:presets#pad#tw               (default: 72)
 
                                                     *presets#pad#Pad()*
-presets#pad#Pad(tw, border)
+presets#pad#Pad(tw, ...)
 
                                                     *presets#pad#Unpad()*
 presets#pad#Unpad()
 
 
 
-vim:tw=78:fo=tcq2:isk=!-~,^*,^|,^":ts=8:ft=help:norl:
+vim:tw=78:fo=w2croql:isk=!-~,^*,^|,^":ts=8:ft=help:norl:
