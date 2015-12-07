@@ -1,6 +1,6 @@
 hi ColorColumn gui=NONE guibg=#000000 guifg=#000000 ctermfg=black ctermbg=darkgray
 hi CursorColumn gui=NONE guibg=#000000 ctermfg=black ctermbg=darkgray
-hi FoldColumn gui=NONE guibg=#000000 guifg=#b0d0e0 ctermfg=black ctermbg=darkgray
+hi FoldColumn gui=NONE guibg=#000000 guifg=#000000 ctermfg=black ctermbg=darkgray
 hi SignColumn gui=NONE guibg=#000000 guifg=#b0d0e0 ctermfg=black ctermbg=darkgray
 hi NonText term=NONE cterm=NONE gui=NONE guibg=#000000 guifg=#000000 ctermfg=black ctermbg=black
 hi VertSplit term=NONE cterm=NONE gui=NONE guibg=#000000 guifg=#000000 ctermfg=black ctermbg=black
